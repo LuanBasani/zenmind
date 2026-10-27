@@ -1,0 +1,8 @@
+{
+  "name": "zenmind",
+  "version": "1.0.0",
+  "description": "ZenMind - QuoteGenius automation scripts",
+  "scripts": {
+    "update-quote": "node simulate_cloud_function.js"
+  }
+}

@@ -1,0 +1,18 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // The quote of the day is readable by anyone (no auth required)
+    match /dailyContent/{document} {
+      allow read: if true;
+      allow write: if false; // Only Cloud Functions (admin SDK) can write
+    }
+
+    // Each user's saved quotes are private — only that user may access them
+    match /users/{userId}/savedQuotes/{quoteId} {
+      allow read, write, delete: if request.auth != null
+                                  && request.auth.uid == userId;
+    }
+  }
+}
